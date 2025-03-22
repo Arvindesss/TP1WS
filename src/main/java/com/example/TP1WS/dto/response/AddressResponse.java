@@ -1,4 +1,4 @@
-package com.example.TP1WS.dto;
+package com.example.TP1WS.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -7,7 +7,7 @@ import java.util.UUID;
 
 @Getter
 @AllArgsConstructor
-public class AddressDto {
+public class AddressResponse {
 
     private String streetName;
 

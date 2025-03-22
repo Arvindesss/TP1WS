@@ -1,15 +1,24 @@
 package com.example.TP1WS.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.UUID;
 
+
+@Getter
+@Setter
+@NoArgsConstructor
 @Entity
+@Table(name = "address")
 public class Address {
 
     @Id
-    private UUID uuid;
+    @Column(name="id_address")
+    private UUID id;
 
     private String streetName;
 
@@ -19,47 +28,16 @@ public class Address {
 
     private String country;
 
-    public Address(String streetName, String city, String postalCode, String country) {
-        this.uuid = UUID.randomUUID();
+    @ManyToOne
+    @JoinColumn(name = "id_user")
+    private User user;
+
+    public Address(String streetName, String city, String postalCode, String country, User user) {
+        this.id = UUID.randomUUID();
         this.streetName = streetName;
         this.city = city;
         this.postalCode = postalCode;
         this.country = country;
-    }
-
-    public Address() {
-
-    }
-
-    public String getStreetName() {
-        return streetName;
-    }
-
-    public void setStreetName(String streetName) {
-        this.streetName = streetName;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    public String getPostalCode() {
-        return postalCode;
-    }
-
-    public void setPostalCode(String postalCode) {
-        this.postalCode = postalCode;
-    }
-
-    public String getCountry() {
-        return country;
-    }
-
-    public void setCountry(String country) {
-        this.country = country;
+        this.user = user;
     }
 }

@@ -1,4 +1,4 @@
 package com.example.TP1WS.models;
 
-public class PIeceIdentite {
+public class PieceIdentite {
 }
