@@ -3,33 +3,34 @@ package com.example.TP1WS.controllers;
 
 import com.example.TP1WS.dto.UserDto;
 import com.example.TP1WS.models.User;
+import com.example.TP1WS.services.UserService;
 import com.example.TP1WS.services.UserServiceImpl;
+import lombok.AllArgsConstructor;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-@SpringBootApplication
+import java.net.URI;
+import java.util.List;
+
 @RestController
+@AllArgsConstructor
+@RequestMapping("v1/users")
 public class UserController {
 
-    private UserServiceImpl userService;
+    private UserService userService;
 
-    public UserController(UserServiceImpl userService) {
-        this.userService = userService;
-    }
-
-    @GetMapping("/v1/name")
-    public ResponseEntity<User> getUserByName(String name) {
-        User user = userService.getByName(name);
+    @GetMapping("")
+    public ResponseEntity<List<User>> getUserByName(String name) {
+        List<User> user = userService.getByName(name);
         return ResponseEntity.ok(user);
     }
 
-    @PostMapping("/v1/name")
-    public ResponseEntity<User> createUser(UserDto userDto) {
+    @PostMapping("")
+    public ResponseEntity<User> createUser(@RequestBody UserDto userDto) {
         User user = userService.createUser(userDto);
-        return ResponseEntity.ok(user);
+        return ResponseEntity
+                .created(URI.create("v1/users" + user.getId()))
+                .body(user);
     }
-
 }

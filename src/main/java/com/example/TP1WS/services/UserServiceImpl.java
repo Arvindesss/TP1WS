@@ -20,17 +20,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User createUser(UserDto userDto,AddressDto addressDto) {
-        List<Address> address = new ArrayList<>();
-        for (AddressDto dto : userDto.getAddress()) {
-            address.add(new Address(dto.getStreetName(), dto.getCity(), dto.getPostalCode(), dto.getCountry()));
-        }
-        User user = new User(userDto.getFirstName(), userDto.getLastName(), address);
+    public User createUser(UserDto userDto) {
+        User user = new User(userDto.getFirstName(), userDto.getLastName());
         return userRepository.save(user);
     }
 
     @Override
-    public User getByName(String name) {
+    public List<User> getByName(String name) {
         return userRepository.getUserByFirstName(name);
     }
 }
